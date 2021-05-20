@@ -179,7 +179,7 @@ def typed_callback_c(type_filter):
         easinesses.append(cdf_points.data['easiness'][inds[i]])
     
     df_points = general_dict['individual_filtered_df'][type_filter]
-    current = df_points.loc[(df_points['recommendation'].isin(recommendations)) & (df_points['easiness'].isin(easinesses)) & (df_points['filter_one'].isin(general_dict['individual_filters'][type_filter])) & (df_points['filter_two'].isin(general_dict['individual_filters'][type_filter])) & (df_points['filter_three'].isin(general_dict['individual_filters'][type_filter]))]
+    current = df_points.loc[(df_points['recommendation'].isin(recommendations)) & (df_points['easiness'].isin(easinesses)) & (df_points['filter_one'].isin(general_dict['individual_filters'][type_filter])) & (df_points['filter_two'].isin(general_dict['individual_filters'][type_filter])) & (df_points['filter_three'].isin(general_dict['individual_filters'][type_filter])) & (df_points['filter_four'].isin(general_dict['individual_filters'][type_filter]))]
     
     data_source.data = {
             'filter_one' : current.filter_one,
@@ -507,12 +507,12 @@ def create_frequency_plot_layout(points_plot_name, y_range):
 def init_frequency_points(type_filter):
 
     filtered_df = general_dict['individual_df'][type_filter]
-    df_one = filtered_df.loc[(~filtered_df['question_one_filtered_lemmas'].isna()), ['sentiment', 'question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three']]
+    df_one = filtered_df.loc[(~filtered_df['question_one_filtered_lemmas'].isna()), ['sentiment', 'question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three', 'filter_four']]
     # df_one[df_one['question_one_filtered_lemmas'].map(lambda d: len(d)) > 0]
 
     d_pv = dict()
 
-    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] > 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three']]
+    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] > 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three', 'filter_four']]
     for lemmas_row in selected_lemmas_pv.itertuples():
         for word in lemmas_row[1]:
             if not word in d_pv:
@@ -521,7 +521,7 @@ def init_frequency_points(type_filter):
 
     d_uv = dict()
 
-    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] == 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three']]
+    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] == 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three', 'filter_four']]
     for lemmas_row in selected_lemmas_pv.itertuples():
         for word in lemmas_row[1]:
             if not word in d_uv:
@@ -530,7 +530,7 @@ def init_frequency_points(type_filter):
 
     d_nv = dict()
 
-    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] < 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three']]
+    selected_lemmas_pv = df_one.loc[(df_one['sentiment'] < 0.0) & (df_one['question_one_filtered_lemmas'].str.len() > 1)][['question_one_filtered_lemmas', 'filter_one', 'filter_two', 'filter_three', 'filter_four']]
     for lemmas_row in selected_lemmas_pv.itertuples():
         for word in lemmas_row[1]:
             if not word in d_nv:
