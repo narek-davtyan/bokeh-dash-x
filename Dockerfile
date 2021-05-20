@@ -10,7 +10,5 @@ RUN conda install --yes --quiet python=${PY_VERSION} numpy packaging pandas boke
 RUN conda clean -ay
 RUN pip install wordcloud==1.8.0 pandarallel==1.5.1
 EXPOSE 8080
-CMD bokeh serve bokeh-dash-x/ --port 8080 \
-    --allow-websocket-origin="*" \
-    --num-procs=${NUM_PROCS}
+CMD bokeh serve bokeh-dash-x/ --port 8080 --allow-websocket-origin="*" --num-procs=${NUM_PROCS}
     
